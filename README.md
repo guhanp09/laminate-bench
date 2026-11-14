@@ -63,4 +63,6 @@ local buckling, joints, interlaminar stress, delamination, impact, fatigue and
 environmental degradation. Maximum stress is a screening criterion; no
 progressive damage or composite certification claim is made.
 
+Source hashes and local tool versions accompany the checked-in [results](results/provenance.json).
+
 MIT licensed. [Technical review](docs/review.md).

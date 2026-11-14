@@ -16,3 +16,15 @@ jobs:
         with:
           name: numerical-results
           path: results/
+  cad:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: sudo apt-get update -qq
+      - run: sudo apt-get install -y openscad
+      - run: mkdir -p build
+      - run: QT_QPA_PLATFORM=offscreen openscad -o build/bend_fixture.csg cad/bend_fixture.scad
+      - uses: actions/upload-artifact@v4
+        with:
+          name: fixture-csg
+          path: build/bend_fixture.csg

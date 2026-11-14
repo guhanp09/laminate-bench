@@ -1,0 +1,16 @@
+{
+  "data_status": "numerical or synthetic; no physical measurements",
+  "python": "3.12.7",
+  "numpy": "1.26.4",
+  "matplotlib": "3.9.2",
+  "source_sha256": {
+    "cad/bend_fixture.scad": "ec8c4c3b7773620c3d1291aa0a296a89c75b5b9c9452cd3eff1fc0baaaf9bdcb",
+    "cad/dimensions.scad": "aa85b8c5e6c3edad51e3c969b7edb38aec893b8f56ef485c710bb39f3e7754c1",
+    "examples/design.json": "22488c83ad7191c4c61554518b5482af2fc38e9a1e11f87c0b2694b5f91b160f",
+    "examples/study.py": "46d687818ced09a4e711f1d54f886d2dfceaf1aa549fd0f0920542d6723f904c",
+    "src/laminate_bench/__init__.py": "971cfba382ac230eae8cdc58e859f4569a944b77111c6348c5960accf6c06d09",
+    "src/laminate_bench/beam.py": "bc748c26712c43a1a185cf8a321369e15e9c0ced43794d755c7f185c9235daf7",
+    "src/laminate_bench/laminate.py": "5dfe3efaa20322b967a96483917f1b228036536fe85da28fcc6b06d291344257",
+    "src/laminate_bench/reduction.py": "cf5371257ab6faca2b0c28460c8454f6ccdb27aa8f0d3f1bb8cb35e948515d50"
+  }
+}

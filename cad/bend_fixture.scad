@@ -1,13 +1,7 @@
 // Concept fixture, dimensions in mm. Not a load-rated machine component.
 // The dimensioned drawing is generated independently by examples/study.py.
 $fn = 64;
-span = 120;
-roller_d = 10;
-coupon_width = 20;
-base_l = 180;
-base_w = 60;
-base_t = 8;
-support_h = 22;
+include <dimensions.scad>;
 
 module roller(x, z) {
     translate([x, 0, z]) rotate([90, 0, 0])
@@ -26,7 +20,7 @@ for (x=[-span/2,span/2]) {
     color("steelblue") roller(x, support_h);
 }
 color([0.15,0.15,0.15,0.8])
-    translate([0,0,support_h+roller_d/2+1]) cube([150,coupon_width,2],center=true);
-color("darkorange") roller(0,support_h+roller_d+2);
+    translate([0,0,support_h+roller_d/2+coupon_t/2]) cube([150,coupon_width,coupon_t],center=true);
+color("darkorange") roller(0,support_h+roller_d+coupon_t);
 // Upper roller is shown without a crosshead or load cell; those are interfaces
 // to a calibrated test frame and must be designed for the actual equipment.

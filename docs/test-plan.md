@@ -10,8 +10,8 @@ cure process. Record ply orientation, operator, resin/hardener batch, cure histo
 specimen ID, edge preparation, mass and thickness at several locations. Retain
 witness coupons. The example coupon is 150 mm long and 20 mm wide, with 120 mm
 between support roller centres. The selected example laminate is 5 mm thick;
-the CAD uses an illustrative 2 mm coupon envelope and must be adjusted to the
-actual specimen before manufacture.
+the CAD uses the same 5 mm coupon envelope. Adjust it to the measured specimen
+before detailing or manufacturing the fixture.
 
 Verify support span and parallel roller axes. Identify a compatible calibrated
 test frame and load cell before detailing the crosshead, bearing blocks, load

@@ -16,6 +16,10 @@ would require shear webs, joints, torsional loads, buckling and damage assessmen
 The study therefore keeps the mixed-angle alternatives rather than declaring
 one layup universally optimal. Full stacks appear in `selected_layup.json`.
 
+Candidates with predicted tip travel above 5% of span or rotation above 0.1 rad
+are flagged outside the declared small-deflection screen. Their linear-model
+numbers are retained for traceability but cannot be taken as valid deformations.
+
 The Euler–Bernoulli FE nodes match the consistent-load closed form to roundoff.
 `beam_verification.csv` shows element count and equilibrium residuals. That
 agreement verifies the implementation, not the material inputs or beam assumptions.

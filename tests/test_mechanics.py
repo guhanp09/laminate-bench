@@ -35,6 +35,16 @@ def test_ninety_degree_and_signed_ply_strengths():
     assert max(x['max_stress_index'] for x in compression) > max(x['max_stress_index'] for x in tension)
 
 
+def test_off_axis_local_stresses_against_direct_stress_rotation():
+    lam = Laminate([45] * 8)
+    nx = 10000
+    sigma_x = nx / lam.thickness_m
+    for row in lam.ply_stresses([nx, 0, 0, 0, 0, 0]):
+        assert row['s1_pa'] == pytest.approx(sigma_x / 2)
+        assert row['s2_pa'] == pytest.approx(sigma_x / 2)
+        assert row['t12_pa'] == pytest.approx(-sigma_x / 2)
+
+
 @pytest.mark.parametrize("elements", [2, 8, 32])
 def test_cantilever_udl_matches_closed_form_and_equilibrium(elements):
     length, ei, load = 0.4, 15.0, -20.0
