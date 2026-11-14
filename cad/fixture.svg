@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="400" viewBox="0 0 960 400">
+<rect width="960" height="400" fill="white"/>
+<g font-family="sans-serif" fill="#24363c"><text x="40" y="35" font-size="23">Three-point-bend fixture · concept · dimensions in mm</text>
+<text x="40" y="62" font-size="14">120 support span · 20 coupon width · Ø10 rollers · 180 × 60 × 8 base</text>
+<rect x="120" y="275" width="720" height="32" fill="#b9c5c8"/>
+<g fill="#788e96"><rect x="324" y="187" width="72" height="88"/><rect x="564" y="187" width="72" height="88"/></g>
+<g fill="#156b7a"><circle cx="360" cy="187" r="20"/><circle cx="600" cy="187" r="20"/></g>
+<rect x="180" y="159" width="600" height="8" fill="#333"/>
+<circle cx="480" cy="139" r="20" fill="#b66b36"/>
+<path d="M480 85 v30 m-7 -10 l7 10 7 -10" fill="none" stroke="#b66b36" stroke-width="3"/>
+<text x="500" y="103" font-size="16">Load cell / crosshead interface</text>
+<path d="M360 212 v38 M600 212 v38 M360 240 H600" fill="none" stroke="#24363c"/>
+<text x="465" y="235" font-size="16">120</text>
+<text x="40" y="350" font-size="14">Schematic elevation. Supports are at x = ±60 mm; illustration horizontal scale is schematic.</text>
+<text x="40" y="376" font-size="14">No crosshead design, alignment qualification or load rating has been established.</text></g></svg>

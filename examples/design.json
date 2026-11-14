@@ -1,0 +1,20 @@
+{
+  "length_m": 0.35,
+  "width_m": 0.04,
+  "udl_n_m": 120.0,
+  "deflection_limit_m": 0.005,
+  "ply_index_limit": 0.5,
+  "ply_thickness_m": 0.000125,
+  "material": {
+    "e1_pa": 130000000000.0,
+    "e2_pa": 9000000000.0,
+    "g12_pa": 5000000000.0,
+    "nu12": 0.3,
+    "density_kg_m3": 1580.0,
+    "xt_pa": 1500000000.0,
+    "xc_pa": 900000000.0,
+    "yt_pa": 40000000.0,
+    "yc_pa": 150000000.0,
+    "shear_pa": 60000000.0
+  }
+}

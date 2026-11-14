@@ -1,0 +1,12 @@
+{
+  "source": "SYNTHETIC",
+  "true_ei_nm2": 27.083333333333343,
+  "machine_compliance_m_n": 1.5e-07,
+  "measured_compliance_m_n": 1.4759975266362993e-06,
+  "specimen_compliance_m_n": 1.3259975266362992e-06,
+  "intercept_m": 2.0041859705325528e-05,
+  "ei_nm2": 27.14937190819832,
+  "compliance_standard_error_m_n": 3.522250809553498e-09,
+  "ei_relative_standard_error": 0.0026563026995144595,
+  "rms_residual_m": 2.4362164038047786e-07
+}
