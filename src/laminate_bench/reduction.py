@@ -22,10 +22,17 @@ def reduce_bend(load_n, displacement_m, span_m, machine_compliance_m_n=0.0):
     specimen = measured - machine_compliance_m_n
     if specimen <= 0:
         raise ValueError("No positive specimen compliance after machine correction")
-    slope_se = float(np.sqrt(np.dot(residual, residual) / (p.size - 2)
-                             / np.sum((p - np.mean(p)) ** 2)))
-    return {"measured_compliance_m_n": measured, "specimen_compliance_m_n": specimen,
-            "intercept_m": float(fit[1]), "ei_nm2": span_m ** 3 / (48 * specimen),
-            "compliance_standard_error_m_n": slope_se,
-            "ei_relative_standard_error": slope_se / specimen,
-            "rms_residual_m": float(np.sqrt(np.mean(residual ** 2)))}
+    slope_se = float(
+        np.sqrt(
+            np.dot(residual, residual) / (p.size - 2) / np.sum((p - np.mean(p)) ** 2)
+        )
+    )
+    return {
+        "measured_compliance_m_n": measured,
+        "specimen_compliance_m_n": specimen,
+        "intercept_m": float(fit[1]),
+        "ei_nm2": span_m**3 / (48 * specimen),
+        "compliance_standard_error_m_n": slope_se,
+        "ei_relative_standard_error": slope_se / specimen,
+        "rms_residual_m": float(np.sqrt(np.mean(residual**2))),
+    }

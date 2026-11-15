@@ -1,24 +1,38 @@
-# Technical review
+# Stiffness and test notes
 
-Reviewed after the initial study, 15 November 2026.
+## Why EI uses the full compliance
 
-| Finding | Resolution / retained limit |
-| --- | --- |
-| width*D11 can overstate free-strip stiffness | EI uses the full ABD compliance, including extension/bending coupling |
-| A transform can pass isotropic tests while recovering wrong local stress | Added a 45-degree uniaxial stress-rotation check |
-| Very flexible candidates violate small-deflection assumptions | Candidates exceeding 5% tip/span or 0.1 rad slope are flagged and excluded; raw linear values remain traceable |
-| A coarse-mesh exact result could be sold as convergence | The beam table is explicitly a consistent-load closed-form verification |
-| All-axial layup wins an artificially narrow load case | Report retains that result and its transverse/joint/impact omissions; mixed-angle alternatives remain visible |
-| Synthetic data can be mistaken for a physical test | Every generated CSV row carries its source; report and fixture status are explicit |
-| Crosshead travel includes frame compliance | Fit a seating intercept and subtract independently supplied machine compliance |
-| Fixture envelope did not match the selected laminate | Generated `dimensions.scad` and the SVG share the selected coupon thickness; support spacing and drawing scale corrected |
-| Generic material numbers could appear to be allowables | All constants stay in the input file, identified as assumptions with no supplier or batch attribution |
+A single D11 term constrains the other laminate responses. For a strip with
+free transverse and twisting resultants, EI is width divided by the [3,3]
+entry of inverse(ABD). This also retains extension–bending coupling in an
+unsymmetric layup. The tests include an unsymmetric [0,90] stack and an isotropic
+limit, plus a 45-degree stress-rotation check on local ply stresses.
 
-Verification includes isotropic rotation invariance, signed ply strengths,
-laminate symmetry/balance, unsymmetric coupling, resultant reconstruction,
-beam equilibrium, an off-node point load and synthetic compliance identification.
+The beam's consistent distributed-load vector reproduces closed-form nodal
+displacements to roundoff. Refining that mesh is a useful implementation check,
+but it does not validate assumed moduli or a one-dimensional beam approximation.
 
-Unresolved: physical coupon manufacture and testing, fixture load-path detailing,
-transverse shear, edge effects, damage, buckling and environmental changes. The
-OpenSCAD source is a concept model; local numerical tests do not qualify CAD
-manufacturability or a physical test setup.
+## Read the layup ranking narrowly
+
+Only longitudinal bending is loaded in this example. All-axial plies are efficient
+under that assumption. The mixed-angle alternatives remain in the result because
+a real spar would also need transverse, shear, torsional and attachment load cases.
+Candidates above 5% tip/span or 0.1 rad rotation are excluded from selection;
+their raw linear predictions remain available for diagnosis.
+
+Maximum stress is a ply screening ratio using assumed tension, compression and
+shear strengths. It does not model progressive damage, delamination or buckling.
+
+## Match the measurement to the calculation
+
+The synthetic coupon data use the selected laminate at 20 mm width and 120 mm
+support span. Every row is labelled SYNTHETIC. A fitted intercept accounts for
+seating offset; supplied machine compliance is subtracted before converting
+specimen compliance to EI. Statistical fit error excludes calibration and geometry
+uncertainty. Support span enters cubically, and thickness would enter cubically
+when converting EI to a material modulus.
+
+The CAD and elevation now share the selected thickness and support spacing.
+The current model describes the specimen/roller arrangement. A compatible test
+frame, crosshead interface, load rating and manufacturing tolerances still need
+to be established before making the fixture.

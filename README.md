@@ -1,20 +1,25 @@
 # Laminate Bench
 
-Composite-strip sizing that connects a laminate calculation to a beam model and
-a practical stiffness-test plan. It compares layup families, recovers ply-face
-stresses and reduces three-point-bend data with machine-compliance correction.
+A small composite-strip calculation with enough detail to compare it against a
+bend test: laminate ABD matrices, a beam finite-element solution, ply-face stress
+recovery and a compliance fit that accounts for the test frame.
 
-![Layup comparison, beam verification, ply stresses and synthetic bend reduction](results/study.png)
+The example is a 350 × 40 mm cantilever under 120 N/m. These are representative
+candidates from the assumed carbon/epoxy study:
 
-For the assumed 350 × 40 mm cantilever at 120 N/m, the lightest passing
-enumerated strip is **40 axial plies, 5.00 mm thick and 110.6 g**. Its predicted
-tip deflection is **4.156 mm** against a 5 mm screen. This narrow load case
-favours axial fibres; the [report](results/report.md) explains why that does
-not make it a complete wing-spar design.
+| Layup family | Plies / thickness | Mass | Tip deflection | 5 mm screen |
+| --- | --- | ---: | ---: | --- |
+| Axial | 40 / 5 mm | 110.6 g | 4.16 mm | Pass |
+| Axial/shear | 48 / 6 mm | 132.7 g | 3.83 mm | Pass |
+| Quasi-isotropic | 48 / 6 mm | 132.7 g | 5.62 mm | Fail |
 
-## Run it
+![Layup comparison, beam deflection, ply stresses and synthetic bend data](results/study.png)
 
-Python 3.10+; NumPy for mechanics, Matplotlib for figures.
+The axial stack wins this bending-only case. The calculation does not include
+shear webs, joints, torsion or impact loads. [Full results](results/report.md)
+retain all 15 candidates and flag those outside the small-deflection assumptions.
+
+## Run the sizing study
 
 ```sh
 python3 -m venv .venv
@@ -25,44 +30,27 @@ make test
 make study
 ```
 
-`python examples/study.py` also runs directly. Change dimensions, load,
-limits or assumed material properties in [design.json](examples/design.json).
+Python 3.10+ is supported. Edit [design.json](examples/design.json) for geometry,
+load, limits and material inputs. All material constants are assumptions; they
+are not batch measurements or design allowables.
 
-## Engineering path
+EI comes from the full laminate compliance, including extension–bending coupling.
+The beam tests check closed-form deflections and reactions. The bend-data example
+fits a seating offset and subtracts independently supplied machine compliance.
+Its data and noise are explicitly synthetic.
 
-1. Assemble A, B and D matrices from bottom-to-top ply angles and thickness.
-   Solve the coupled six-component compliance problem; recover stresses at both
-   faces of each ply, including tension/compression-specific strengths.
-2. Convert the free-resultant bending compliance to strip EI. Compare symmetric
-   axial, axial/shear and quasi-isotropic families on mass, deflection and a
-   maximum-stress screen.
-3. Solve a two-node Euler–Bernoulli beam FE model with consistent distributed
-   loads and off-node point loads. Check deflection and reactions against closed
-   forms before using the result.
-4. Fit compliance from a declared elastic loading window. Subtract independently
-   known machine compliance, retain the seating intercept and report fit residuals.
+## Bend-fixture concept
 
-The checked-in data demonstration is **synthetic**, including its noise. It
-verifies the reduction pipeline and is not evidence of fabricated coupons.
-[Equations and assumptions](docs/mechanics.md); [test plan](docs/test-plan.md).
+![Fixture elevation](cad/fixture.svg)
 
-## Fixture concept
+The [OpenSCAD model](cad/bend_fixture.scad) uses a 120 mm support span, 10 mm
+rollers and a 20 mm wide coupon. The study updates the coupon thickness in
+[dimensions.scad](cad/dimensions.scad). GitHub CI parses the model and retains
+the CSG output. Load-path detailing, tolerances and physical testing remain open.
 
-![Dimensioned bend-fixture concept](cad/fixture.svg)
+The [test plan](docs/test-plan.md) covers specimen records, seating, frame
+compliance and displacement resolution. The current example has only tens of
+micrometres of travel, so instrumentation choice matters.
 
-[OpenSCAD source](cad/bend_fixture.scad) models the base, supports, rollers and
-coupon envelope for a 120 mm support span. The upper roller is an interface to
-a test-frame crosshead. The concept has no established load rating, assembly
-tolerances or manufactured parts.
-
-## Scope
-
-Material constants are illustrative carbon/epoxy inputs, not supplier-certified
-or measured design allowables. The 1D model omits transverse shear deformation,
-local buckling, joints, interlaminar stress, delamination, impact, fatigue and
-environmental degradation. Maximum stress is a screening criterion; no
-progressive damage or composite certification claim is made.
-
-Source hashes and local tool versions accompany the checked-in [results](results/provenance.json).
-
-MIT licensed. [Technical review](docs/review.md).
+[Mechanics](docs/mechanics.md) · [Design notes](docs/review.md) ·
+[Source hashes](results/provenance.json)
